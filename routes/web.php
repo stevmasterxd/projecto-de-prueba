@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\Note;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +19,10 @@ Route::get('/', function () {
 });
 
 Route::get('/notes', function () {
-    $notes = DB::table('notes_tables')->get();
+    $notes = Note::query()
+    ->orderByDesc('id')
+    ->get()
+    ;
     return view('notes.index')->with('notes', $notes);
 })->name('notes.index');
 
@@ -32,7 +35,6 @@ Route::get('/notes/{id}', function ($id) {
 })->name('notes.view');
 
 Route::get('/notes/{id}/edit', function ($id) {
-    $note = DB::table('notes_tables')->find($id);
-    abort_if($note === null, 404);
-    return 'Edit note: ' . $note-> title;
+    $note = Note::findOrFail($id);
+    return 'Edit note: ' . $note->title;
 })->name('notes.edit');
