@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,25 +19,20 @@ Route::get('/', function () {
 });
 
 Route::get('/notes', function () {
-    $notes = [
-        "primera nota",
-        "segunda nota",
-        "tercera nota",
-        "cuarta nota",
-        "quinta nota",
-    ];
+    $notes = DB::table('notes_tables')->get();
     return view('notes.index')->with('notes', $notes);
 })->name('notes.index');
-Route::get('/notes/create', function () {
-    return view('notes.create');
-});
-
-Route::get('/notes/{id}', function ($id) {
-    return 'Detalles de la note' . ' ' . $id;
-})->name('notes.view');
 
 Route::get('/notes/create', function () {
     return view('notes.create');
 })->name('notes.create');
 
+Route::get('/notes/{id}', function ($id) {
+    return 'Note ditail' . ' ' . $id;
+})->name('notes.view');
 
+Route::get('/notes/{id}/edit', function ($id) {
+    $note = DB::table('notes_tables')->find($id);
+    abort_if($note === null, 404);
+    return 'Edit note: ' . $note-> title;
+})->name('notes.edit');

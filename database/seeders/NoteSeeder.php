@@ -63,8 +63,8 @@ class NoteSeeder extends Seeder
         DB::table('notes_tables')->insert([
             'title' => 'Cambia el formato de parámetros dinámicos',
             'content' => <<<'content'
-                     Puedes colocar el siguiente código en el método <code>boot</code>
-                    de <code>app/Providers/RouteServiceProvider.php</code>
+                    Puedes colocar el siguiente código en el método <code>boot</code>
+                    de app/Providers/RouteServiceProvider.php
                     para restringir cualquier parámetro de las rutas a un formato numérico:
 
                     Route::pattern('nombre-del-parametro', '\d+');
