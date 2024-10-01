@@ -35,6 +35,7 @@ Route::post('/notes', function () {
         'title' => Request::input('title'),
         'content' => Request::input('content'),
     ]);
+
     return redirect()->route('notes.index');
 })->name('notes.store');
 

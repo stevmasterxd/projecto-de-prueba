@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {   
-    protected $fillable = ['tittle', 'content'];
+    protected $fillable = ['title', 'content'];
     protected $table = 'notes_tables';
     public function editUrl()
     {
