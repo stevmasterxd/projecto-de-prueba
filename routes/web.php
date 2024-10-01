@@ -1,8 +1,9 @@
 <?php
+
 use App\Models\Note;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,15 +21,22 @@ Route::get('/', function () {
 
 Route::get('/notes', function () {
     $notes = Note::query()
-    ->orderByDesc('id')
-    ->get()
-    ;
+        ->orderByDesc('id')
+        ->get();
     return view('notes.index')->with('notes', $notes);
 })->name('notes.index');
 
 Route::get('/notes/create', function () {
     return view('notes.create');
 })->name('notes.create');
+
+Route::post('/notes', function () {
+    Note::create([
+        'title' => Request::input('title'),
+        'content' => Request::input('content'),
+    ]);
+    return redirect()->route('notes.index');
+})->name('notes.store');
 
 Route::get('/notes/{id}', function ($id) {
     return 'Note ditail' . ' ' . $id;
