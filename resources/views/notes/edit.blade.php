@@ -15,7 +15,7 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('notes.update', ['id'=> $note->id]) }}" method="PUT">
+                        <form action="{{ route('notes.update', ['id'=> $note->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <label for="title" class="field-label">Titulo: </label>
