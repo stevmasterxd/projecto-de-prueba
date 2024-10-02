@@ -5,18 +5,27 @@
                 <div class="card card-center">
                     <div class="card-body">
                         <h1>Nueva nota</h1>
-
+                        @if($errors->any())
+                        <div class="errors">
+                            <p><strong>El formulario contiene errores, por favor corrígelos e intenta nuevamente:</strong></p>
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <form action="{{ route('notes.store') }}" method="post">
                             @csrf
                             <label for="title" class="field-label">Título: </label>
-                            <input type="text" name="title" id="title"value="{{ old('title') }}" class="field-input">
+                            <input type="text" name="title" id="title" value="{{ old('title') }}" class="field-input">
                             @error('title')
-                                {{ $mesagge }}
+                            {{ $mesagge }}
                             @enderror
                             <label for="content" class="field-label">Contenido:</label>
                             <textarea name="content" id="content" rows="10" class="field-textarea">{{ old('title') }}</textarea>
                             @error('content')
-                                {{ $mesagge }}
+                            {{ $mesagge }}
                             @enderror
                             <button type="submit" class="btn btn-primary">Crear nota</button>
                         </form>
@@ -24,4 +33,4 @@
                 </div>
             </div>
         </main>
-</x-layout>   
+</x-layout>
