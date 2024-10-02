@@ -1,9 +1,10 @@
 <?php
 
 use App\Models\Note;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rule;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,13 +31,18 @@ Route::get('/notes/create', function () {
     return view('notes.create');
 })->name('notes.create');
 
-Route::post('/notes', function () {
-    Note::create([
-        'title' => Request::input('title'),
-        'content' => Request::input('content'),
+Route::post('/notes', function (Request $request) {
+    $request->validate([
+        'title' => ['required', 'min:3', Rule::unique('notes_tables')],
+        'content' => 'required',
     ]);
 
-    return redirect()->route('notes.index');
+    Note::create([
+        'title' => $request->input('title'),
+        'content' => $request->input('content'),
+    ]);
+
+    return back();
 })->name('notes.store');
 
 Route::get('/notes/{id}', function ($id) {
