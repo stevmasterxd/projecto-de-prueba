@@ -24,24 +24,29 @@ class NoteController
     {
         return view('notes.create');
     }
-    public function store(Request $request) 
+    public function store(Request $request)
     {
         $request->validate([
             'title' => ['required', 'min:3', Rule::unique('notes_tables')],
             'content' => 'required',
         ]);
-    
+
         Note::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
         ]);
-    
+
         return to_route('notes.index');
     }
     public function edit($id)
     {
-            $note = Note::findOrFail($id);
-            return 'Edit note: ' . $note->title;
-        }
+        $note = Note::findOrFail($id);
+        return view('notes.edit', ['note' => $note]);
+    }
+    public function update($id)
+    {
+        dd("Updating: $id");    
     }
     
+}
+
