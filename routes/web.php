@@ -29,7 +29,4 @@ Route::post('/notes', [NoteController::class, 'store'])->name('notes.store');
 
 Route::get('/notes/{id}', [NoteController::class, 'show'])->name('notes.view');
 
-Route::get('/notes/{id}/edit', function ($id) {
-    $note = Note::findOrFail($id);
-    return 'Edit note: ' . $note->title;
-})->name('notes.edit');
+Route::get('/notes/{id}/edit', [NoteController::class, 'edit'])->name('notes.edit');
