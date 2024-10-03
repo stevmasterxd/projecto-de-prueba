@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->mediumText('content');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

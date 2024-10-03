@@ -56,4 +56,10 @@ class NoteController
         ]);
         return to_route('notes.index');
     }
-}
+    public function destroy($id)
+    {
+        $note = Note::findOrFail($id);
+        $note->delete();
+        return to_route('notes.index');
+    }
+} 

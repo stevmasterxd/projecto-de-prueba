@@ -1,13 +1,18 @@
 <x-layout>
-<x-slot:title>listado de notas</x-slot>
+    <x-slot:title>listado de notas</x-slot>
         <main class="content">
             <div class="cards">
                 @foreach($notes as $note)
-            <div class="card card-small">
+                <div class="card card-small">
                     <div class="card-body">
                         <h4> {{ $note->title}} </h4>
                         <p>
-                             {{ $note->content}}
+                            {{ $note->content}}
+                        <form method="POST" action="{{ route('notes.destroy', $note) }}">
+                            @method('DELETE')
+                            @csrf
+                            <button>Eliminate</button>
+                        </form>
                         </p>
                     </div>
 
@@ -20,7 +25,7 @@
                         </a>
                     </footer>
                 </div>
-                 @endforeach
+                @endforeach
             </div>
         </main>
-</x-layout>         
+</x-layout>
