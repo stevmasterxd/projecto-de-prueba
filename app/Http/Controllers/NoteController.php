@@ -43,10 +43,17 @@ class NoteController
         $note = Note::findOrFail($id);
         return view('notes.edit', ['note' => $note]);
     }
-    public function update($id)
+    public function update($id, Request $request)
     {
-        dd("Updating: $id");    
+        $note = Note::findOrFail($id);
+        $request->validate([
+            'title' => ['required', 'min:3', Rule::unique('notes_tables')->ignore($note)],
+            'content' => 'required',
+        ]);
+        $note->update([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+        ]);
+        return to_route('notes.index');
     }
-    
 }
-
