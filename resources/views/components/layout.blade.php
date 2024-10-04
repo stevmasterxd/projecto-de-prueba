@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{ $title ?? 'App de notas' }}</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
     <div class="wrap">
         <header class="head">
@@ -28,7 +30,7 @@
                 </ul>
             </nav>
         </header>
-    {{ $slot }}
+        {{ $slot }}
         <footer class="foot">
             <div class="ad">
                 <p>
@@ -41,5 +43,6 @@
             </div>
         </footer>
     </div>
+    {{ $javascript ?? '' }}
 </body>
 </html>
